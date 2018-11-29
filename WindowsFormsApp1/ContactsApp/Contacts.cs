@@ -16,63 +16,143 @@ namespace ContactsApp
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        private string UppercaseFirst(char[] s)
+        private string UppercaseFirst(string s)
         {
-            s[0] = char.ToUpper(s[0]);
-            return new string(s);
+            char[] a = s.ToCharArray();
+            a[0] = char.ToUpper(a[0]);
+            return new string(a);
         }
-
+      
         /// <summary>
-        /// 
+        /// Переменная для реализации метода get в Name
         /// </summary>
-        private char[] _name = new char[50];
-
+        private string _name;
+      
         /// <summary>
-        /// 
+        /// Имя контакта
         /// </summary>
-        public string name
+        public string Name
         {
-            get { return new string(_name); }
+            get
+            {
+                return (UppercaseFirst(_name));
+            }
+
             set
             {
-                name = UppercaseFirst(_name);
+                if (value.Length > 50)
+                {
+                    throw new ArgumentException(@"Имя должна быть короче 50 символов");
+                }
+                else Name = value;
             }
         }
-
-        private char[] _surname = new char[50];
-
-        public string surnameOfPerson
+      
+        /// <summary>
+        /// Переменная для реализации метода get в Surname
+        /// </summary>
+        private string _surname;
+      
+        /// <summary>
+        /// Фамилия контакта
+        /// </summary>
+        public string Surname
         {
-            get { return new string(_surname); }
+            get { return _surname; }
             set
             {
-
-                surnameOfPerson = UppercaseFirst(_surname);
+                if (value.Length > 50)
+                {
+                    throw new ArgumentException(@"Фамилия должна быть короче 50 символов");
+                }
+                else Surname = value;
             }
         }
-        public char[] email = new char[50];
-        public char[] idvkontakte = new char[15];
+    
+        /// <summary>
+        /// Переменная для реализации метода get в email
+        /// </summary>
+        private string _email;
+     
+        /// <summary>
+        /// Адрес электронной почты контакта
+        /// </summary>
+        public string email
+        {
+            get
+            {
+                return _email;
+            }
+            set
+            {
+                if (value.Length > 50)
+                {
+                    throw new ArgumentException(@"email должен быть короче 50 символов");
+                }
+                else email = value;
+            }
+        }
+        /// <summary>
+        /// Переменная для реализации метода get в idvk
+        /// </summary>
+        private string _idvk;
+      
+        /// <summary>
+        /// ID страницы ВКонтакте контакта
+        /// </summary>
+        public string idvk
+        {
+            get
+            {
+                return _idvk;
+            }
+            set
+            {
+                if (value.Length > 15)
+                {
+                    throw new ArgumentException(@"Ид ВКонтакте должен быть короче 15 символов");
+                }
+                else idvk = value;
+            }
+        }
+        /// <summary>
+        /// Переменная для реализации метода get в Date
+        /// </summary>
         private DateTime _checkDate;
-        //private DateTime dateTimeNow = DateTime.Now;
+       
+        /// <summary>
+        /// Минимальная дата которая может быть назначена в качестве даты рождения
+        /// </summary>
         private readonly DateTime dateMin = new DateTime(1900, 00, 00);
-        public DateTime dateOfBirth
+       
+        /// <summary>
+        /// Дата рождения контакта
+        /// </summary>
+        public DateTime Date
         {
             get { return _checkDate; }
             set
             {
-                if (_checkDate > DateTime.Now && _checkDate < dateMin)
+                if (value > DateTime.Now && value < dateMin)
                 {
                     throw new ArgumentException("Дата рождения должна быть меньше текущей даты и более чем 1900 год");
                 }
-                else dateOfBirth = _checkDate;
+                else Date = value;
             }
 
         }
-        private NumberOfPhone _phone;
-        public NumberOfPhone phone
+        /// <summary>
+        /// Переменная для реализации метода get в Phone
+        /// </summary>
+        private Numbers _phone;
+       
+        /// <summary>
+        /// Переменная,связанная с классом Numbers, хранящая данные о номере телефона
+        /// </summary>
+        public Numbers Phone
         {
             get { return _phone; }
-            set { phone = _phone; }
+            set { Phone = value; }
         }
 
     }

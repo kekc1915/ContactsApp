@@ -11,18 +11,24 @@ namespace ContactsApp
     /// </summary>
     public class Numbers
     {
+        /// <summary>
+        /// Переменная для реализации метода get в Number
+        /// </summary>
         private System.Int64 _numbercheck;
 
-        public System.Int64 number
+        /// <summary>
+        /// Переменная,аналог longint,хранящая данная о номере телефона и выполняющая все необходимые проверки
+        /// </summary>
+        public System.Int64 Number
         {
             get { return _numbercheck; }
             set
             {
-                if (_numbercheck > 79999999999 && _numbercheck < 70000000000)
+                if (value > 79999999999 && value < 70000000000)
                 {
-                    throw new ArgumentException("Номер телефона должен быть в формате 7xxxxxxxxxx,а был " + _numbercheck);
+                    throw new ArgumentException("Номер телефона должен быть в формате 7xxxxxxxxxx,а был " + value);
                 }
-                else number = _numbercheck;
+                else Number = value;
             }
 
         }
