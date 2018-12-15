@@ -28,9 +28,8 @@ namespace ContactsApp
                 {
                     throw new ArgumentException("Номер телефона должен быть в формате 7xxxxxxxxxx,а был " + value);
                 }
-                else Number = value;
+                else _numbercheck = value;
             }
-
         }
     }
 }

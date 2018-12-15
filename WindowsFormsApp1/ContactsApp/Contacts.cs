@@ -44,7 +44,7 @@ namespace ContactsApp
                 {
                     throw new ArgumentException(@"Имя должна быть короче 50 символов");
                 }
-                else Name = value;
+                else _name = value;
             }
         }
       
@@ -58,14 +58,14 @@ namespace ContactsApp
         /// </summary>
         public string Surname
         {
-            get { return _surname; }
+            get { return UppercaseFirst(_surname); }
             set
             {
                 if (value.Length > 50)
                 {
                     throw new ArgumentException(@"Фамилия должна быть короче 50 символов");
                 }
-                else Surname = value;
+                else _surname = value;
             }
         }
     
@@ -89,7 +89,7 @@ namespace ContactsApp
                 {
                     throw new ArgumentException(@"email должен быть короче 50 символов");
                 }
-                else email = value;
+                else _email = value;
             }
         }
         /// <summary>
@@ -112,7 +112,7 @@ namespace ContactsApp
                 {
                     throw new ArgumentException(@"Ид ВКонтакте должен быть короче 15 символов");
                 }
-                else idvk = value;
+                else _idvk = value;
             }
         }
         /// <summary>
@@ -123,12 +123,12 @@ namespace ContactsApp
         /// <summary>
         /// Минимальная дата которая может быть назначена в качестве даты рождения
         /// </summary>
-        private readonly DateTime dateMin = new DateTime(1900, 00, 00);
+        private readonly DateTime dateMin = new DateTime(1900, 01, 01);
        
         /// <summary>
         /// Дата рождения контакта
         /// </summary>
-        public DateTime Date
+        public DateTime Birthday
         {
             get { return _checkDate; }
             set
@@ -137,7 +137,7 @@ namespace ContactsApp
                 {
                     throw new ArgumentException("Дата рождения должна быть меньше текущей даты и более чем 1900 год");
                 }
-                else Date = value;
+                else _checkDate= value;
             }
 
         }
@@ -152,7 +152,7 @@ namespace ContactsApp
         public Numbers Phone
         {
             get { return _phone; }
-            set { Phone = value; }
+            set { _phone = value; }
         }
 
     }

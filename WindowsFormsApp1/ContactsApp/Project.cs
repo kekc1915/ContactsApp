@@ -7,7 +7,7 @@ namespace ContactsApp
     /// <summary>
     /// Класс,хранящий в себе элемент список всех контактов
     /// </summary>
-    class Project
+    public class Project
     {
         /// <summary>
         /// Переменная хранящая все себе список всех контактов

@@ -5,17 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
+
 namespace ContactsApp
 {   /// <summary>
     /// Класс реализующий сериализацию и десериализацию объекта project.cs в файл.
     /// </summary>
-    class Project_Manager
+    public class Project_Manager
     {
-      /*  private static string filename = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/ContactApp.notes";
-     
-
-        //private static string filename = "C:/Users/rodic/Documents/ContactsApp.notes";
-        
+       /* private static string filename = Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "/ContactApp.notes";
+        //private static string filename = @"C:\Users\rodic\Documents";
         /// <summary>
         /// Выполнение сериализации
         /// </summary>
@@ -57,9 +55,9 @@ namespace ContactsApp
 
 
 
-
-
+    
     */
+    
     }
 
 }
