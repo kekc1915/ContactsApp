@@ -22,37 +22,20 @@ namespace ContactAppUI
         {
         
         }
+ 
         private List<Contact> _contactsListMainForm = new List<Contact>();
-
-        private static  string _text;
-
-        public static string  TxtBox
-        {
-
-            get { return _text; }
-            set { _text = value; }
-
-        }
-
-        private static Contact _newContactForm1;
-
-        public static Contact newContactForm1
-        {
-            get { return _newContactForm1; }
-            set { _newContactForm1 = value; }
-        }
-        
-
+      
         private void AddButton_Click(object sender, EventArgs e)
-        {
-            newContactForm1 = null;
-            Form2 form2 = new Form2();
+        {         
+            var form2 = new Form2();
             form2.Owner = this;
+            //form2.Data = null;
             form2.ShowDialog();
-            if (newContactForm1 != null)
+            var UpdatedDate = form2.Data;         
+            if (UpdatedDate != null)
             {
-                _contactsListMainForm.Add(newContactForm1);
-                ContactsListBox.Items.Add(_text);
+                _contactsListMainForm.Add(UpdatedDate.newContact);
+                ContactsListBox.Items.Add(UpdatedDate.TxtBox);
             }
         }
 
@@ -63,7 +46,24 @@ namespace ContactAppUI
 
         private void EditButton_Click(object sender, EventArgs e)
         {
-            
+            Form2 form2 = new Form2();
+            if (ContactsListBox.SelectedIndex >= 0)
+            {
+                form2.Data.newContact = _contactsListMainForm[ContactsListBox.SelectedIndex];
+                form2.Data.TxtBox = _contactsListMainForm[ContactsListBox.SelectedIndex].Surname;
+                form2.ShowDialog();
+                var UpdatedDate = form2.Data;
+                _contactsListMainForm.RemoveAt(ContactsListBox.SelectedIndex);
+                ContactsListBox.Items.RemoveAt(ContactsListBox.SelectedIndex);
+                _contactsListMainForm.Add(UpdatedDate.newContact);
+                ContactsListBox.Items.Add(UpdatedDate.TxtBox);
+                NameTextBox.Text = UpdatedDate.newContact.Name;
+                SurnameTextBox.Text = UpdatedDate.newContact.Surname;
+                EmailTextBox.Text = UpdatedDate.newContact.email;
+                VkTextBox.Text = UpdatedDate.newContact.idvk;
+                BirthdayDateTimePicker.Value = UpdatedDate.newContact.Birthday;
+                PhoneTextBox.Text = Convert.ToString(UpdatedDate.newContact.Phone.Number);
+            }
         }
 
         private void HelpButton_Click(object sender, EventArgs e)
@@ -80,13 +80,14 @@ namespace ContactAppUI
         {
             if (ContactsListBox.SelectedIndex >= 0)
             {
-                newContactForm1 = _contactsListMainForm[ContactsListBox.SelectedIndex];
-                NameTextBox.Text = _contactsListMainForm[ContactsListBox.SelectedIndex].Name;
-                SurnameTextBox.Text = _contactsListMainForm[ContactsListBox.SelectedIndex].Surname;
-                EmailTextBox.Text = _contactsListMainForm[ContactsListBox.SelectedIndex].email;
-                VkTextBox.Text = _contactsListMainForm[ContactsListBox.SelectedIndex].idvk;
-                BirthdayDateTimePicker.Value = _contactsListMainForm[ContactsListBox.SelectedIndex].Birthday;
-                PhoneTextBox.Text= Convert.ToString(_contactsListMainForm[ContactsListBox.SelectedIndex].Phone.Number);
+                Contact newContact;
+                newContact = _contactsListMainForm[ContactsListBox.SelectedIndex];
+                NameTextBox.Text = newContact.Name;
+                SurnameTextBox.Text = newContact.Surname;
+                EmailTextBox.Text = newContact.email;
+                VkTextBox.Text = newContact.idvk;
+                BirthdayDateTimePicker.Value = newContact.Birthday;
+                PhoneTextBox.Text = Convert.ToString(newContact.Phone.Number);
             }
         }
 
@@ -115,25 +116,11 @@ namespace ContactAppUI
 
         }
 
-        private void FixButton_Click(object sender, EventArgs e)
-        {
-            Form2 form2 = new Form2();
-            if (ContactsListBox.SelectedIndex >=0)
-            {
-                Form2.newContacts = _contactsListMainForm[ContactsListBox.SelectedIndex];
-                _contactsListMainForm.RemoveAt(ContactsListBox.SelectedIndex);
-                ContactsListBox.Items.RemoveAt(ContactsListBox.SelectedIndex);
-                form2.ShowDialog();
-                _contactsListMainForm.Add(newContactForm1);
-                ContactsListBox.Items.Add(_text);
-            }
-        }
         
         private void RemoveButton_Click(object sender, EventArgs e)
         {
-
-           DialogResult result=MessageBox.Show("Do you really want to delete the contact?", "Warning",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
-
+            
+            DialogResult result=MessageBox.Show("Do you really want to delete the contact?\n"+ _contactsListMainForm[ContactsListBox.SelectedIndex].Surname + " " + _contactsListMainForm[ContactsListBox.SelectedIndex].Name, "Warning",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
             if ( result==DialogResult.OK)
             {
                 _contactsListMainForm.RemoveAt(ContactsListBox.SelectedIndex);
@@ -169,7 +156,7 @@ namespace ContactAppUI
 
         private void EditContactToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            FixButton_Click(null, null);
+            EditButton_Click(null, null);
         }
 
         private void RemoveContactToolStripMenuItem3_Click(object sender, EventArgs e)

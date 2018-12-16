@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.AddButton = new System.Windows.Forms.Button();
-            this.FixButton = new System.Windows.Forms.Button();
+            this.EditButton = new System.Windows.Forms.Button();
             this.ContactsListBox = new System.Windows.Forms.ListBox();
             this.FindLabel = new System.Windows.Forms.Label();
             this.FindTextBox = new System.Windows.Forms.TextBox();
@@ -48,11 +48,11 @@
             this.RemoveButton = new System.Windows.Forms.Button();
             this.EditMenuStrip = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.AddContactToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EditContactToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.RemoveContactToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EditMenuStrip.SuspendLayout();
@@ -71,18 +71,18 @@
             this.AddButton.UseVisualStyleBackColor = true;
             this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
-            // FixButton
+            // EditButton
             // 
-            this.FixButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.FixButton.FlatAppearance.BorderSize = 0;
-            this.FixButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FixButton.Location = new System.Drawing.Point(93, 415);
-            this.FixButton.Name = "FixButton";
-            this.FixButton.Size = new System.Drawing.Size(75, 23);
-            this.FixButton.TabIndex = 1;
-            this.FixButton.Text = "Fix";
-            this.FixButton.UseVisualStyleBackColor = true;
-            this.FixButton.Click += new System.EventHandler(this.FixButton_Click);
+            this.EditButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.EditButton.FlatAppearance.BorderSize = 0;
+            this.EditButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.EditButton.Location = new System.Drawing.Point(93, 415);
+            this.EditButton.Name = "EditButton";
+            this.EditButton.Size = new System.Drawing.Size(75, 23);
+            this.EditButton.TabIndex = 1;
+            this.EditButton.Text = "Edit";
+            this.EditButton.UseVisualStyleBackColor = true;
+            this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
             // 
             // ContactsListBox
             // 
@@ -263,6 +263,13 @@
             this.toolStripMenuItem1.Text = "File";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
             // editToolStripMenuItem1
             // 
             this.editToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -277,30 +284,23 @@
             // AddContactToolStripMenuItem
             // 
             this.AddContactToolStripMenuItem.Name = "AddContactToolStripMenuItem";
-            this.AddContactToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.AddContactToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.AddContactToolStripMenuItem.Text = "Add Contact";
             this.AddContactToolStripMenuItem.Click += new System.EventHandler(this.AddContactToolStripMenuItem1_Click);
             // 
             // EditContactToolStripMenuItem2
             // 
             this.EditContactToolStripMenuItem2.Name = "EditContactToolStripMenuItem2";
-            this.EditContactToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.EditContactToolStripMenuItem2.Size = new System.Drawing.Size(162, 22);
             this.EditContactToolStripMenuItem2.Text = "Edit Contact";
             this.EditContactToolStripMenuItem2.Click += new System.EventHandler(this.EditContactToolStripMenuItem2_Click);
             // 
             // RemoveContactToolStripMenuItem
             // 
             this.RemoveContactToolStripMenuItem.Name = "RemoveContactToolStripMenuItem";
-            this.RemoveContactToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.RemoveContactToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.RemoveContactToolStripMenuItem.Text = "Remove Contact";
             this.RemoveContactToolStripMenuItem.Click += new System.EventHandler(this.RemoveContactToolStripMenuItem3_Click);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -314,7 +314,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -339,7 +339,7 @@
             this.Controls.Add(this.FindTextBox);
             this.Controls.Add(this.FindLabel);
             this.Controls.Add(this.ContactsListBox);
-            this.Controls.Add(this.FixButton);
+            this.Controls.Add(this.EditButton);
             this.Controls.Add(this.AddButton);
             this.Controls.Add(this.EditMenuStrip);
             this.MainMenuStrip = this.EditMenuStrip;
@@ -356,7 +356,7 @@
         #endregion
 
         private System.Windows.Forms.Button AddButton;
-        private System.Windows.Forms.Button FixButton;
+        private System.Windows.Forms.Button EditButton;
         private System.Windows.Forms.Label FindLabel;
         private System.Windows.Forms.TextBox FindTextBox;
         private System.Windows.Forms.Label NameLabel;

@@ -22,14 +22,14 @@ namespace ContactAppUI
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            if (newContacts != null)
+           if (Data.newContact != null)
             {
-                SurnameTextBox.Text = newContacts.Surname;
-                NameTextBox.Text = newContacts.Name;
-                EmailTextBox.Text = newContacts.email;
-                VkTextBox.Text = newContacts.idvk;
-                BirthdayDateTimePicker.Value = newContacts.Birthday;
-                PhoneTextBox.Text = Convert.ToString(newContacts.Phone.Number);
+                SurnameTextBox.Text = Data.newContact.Surname;
+                NameTextBox.Text = Data.newContact.Name;
+                EmailTextBox.Text = Data.newContact.email;
+                VkTextBox.Text = Data.newContact.idvk;
+                BirthdayDateTimePicker.Value = Data.newContact.Birthday;
+                PhoneTextBox.Text = Convert.ToString(Data.newContact.Phone.Number);
             }
             
         }
@@ -64,18 +64,27 @@ namespace ContactAppUI
             
         }
 
-        private static Contact _newContacts;
-
-        public static  Contact newContacts
+        public class DataInMainForm
         {
-            get { return _newContacts; }
-            set { _newContacts = value; }
+            public string TxtBox;
+            public Contact newContact;
         }
-
+        private DataInMainForm _data = new DataInMainForm();
+        public DataInMainForm Data
+        {
+            get
+            {
+                return _data;
+            }
+            set
+            {
+                _data = value;
+            }
+        }
+        
        private Contact newContact = new Contact();
 
        private Numbers _phone = new Numbers();
-
 
         private void OkButton_Click(object sender, EventArgs e)
         {
@@ -86,19 +95,19 @@ namespace ContactAppUI
             newContact.Birthday = BirthdayDateTimePicker.Value;
             newContact.Phone = _phone;
             newContact.email = EmailTextBox.Text;
-            newContact.idvk = VkTextBox.Text;  
-            Form1.TxtBox = newContact.Surname;
-            Form1.newContactForm1 = newContact;
+            newContact.idvk = VkTextBox.Text;
+            _data.TxtBox = newContact.Surname;
+            _data.newContact = newContact;
             this.Close();
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
             Form1 main = this.Owner as Form1;
+            var form1 = new Form1();
             if (main != null)
             {
-                Form1.newContactForm1 = null;
-                newContacts = null;
+                Data = null;
             }
             this.Close();
         }
