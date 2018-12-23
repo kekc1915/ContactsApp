@@ -26,8 +26,8 @@ namespace ContactAppUI
             {
                 SurnameTextBox.Text = Data.newContact.Surname;
                 NameTextBox.Text = Data.newContact.Name;
-                EmailTextBox.Text = Data.newContact.email;
-                VkTextBox.Text = Data.newContact.idvk;
+                EmailTextBox.Text = Data.newContact.Email;
+                VkTextBox.Text = Data.newContact.Idvk;
                 BirthdayDateTimePicker.Value = Data.newContact.Birthday;
                 PhoneTextBox.Text = Convert.ToString(Data.newContact.Phone.Number);
             }
@@ -94,8 +94,8 @@ namespace ContactAppUI
             newContact.Name = NameTextBox.Text;
             newContact.Birthday = BirthdayDateTimePicker.Value;
             newContact.Phone = _phone;
-            newContact.email = EmailTextBox.Text;
-            newContact.idvk = VkTextBox.Text;
+            newContact.Email = EmailTextBox.Text;
+            newContact.Idvk = VkTextBox.Text;
             _data.TxtBox = newContact.Surname;
             _data.newContact = newContact;
             this.Close();

@@ -24,7 +24,7 @@ namespace ContactsApp
                 get { return _numbercheck; }
                 set
                 {
-                    if (value > 79999999999 && value < 70000000000)
+                    if (value > 79999999999 || value < 70000000000)
                     {
                         throw new ArgumentException("Номер телефона должен быть в формате 7xxxxxxxxxx,а был " + value);
                     }

@@ -17,7 +17,7 @@ namespace ContactsApp
             /// </summary>
             /// <param name="s"></param>
             /// <returns></returns>
-            private string UppercaseFirst(string s)
+            public string UppercaseFirst(string s)
             {
                 char[] a = s.ToCharArray();
                 a[0] = char.ToUpper(a[0]);
@@ -41,9 +41,9 @@ namespace ContactsApp
 
                 set
                 {
-                    if (value.Length > 50)
+                    if (value.Length > 50 || value == String.Empty)
                     {
-                        throw new ArgumentException(@"Имя должна быть короче 50 символов");
+                        throw new ArgumentException(@"Имя должна быть короче 50 символов и не пустой строкой");
                     }
                     else _name = value;
                 }
@@ -62,9 +62,9 @@ namespace ContactsApp
                 get { return UppercaseFirst(_surname); }
                 set
                 {
-                    if (value.Length > 50)
+                    if (value.Length > 50 || value == String.Empty)
                     {
-                        throw new ArgumentException(@"Фамилия должна быть короче 50 символов");
+                        throw new ArgumentException(@"Фамилия должна быть короче 50 символов и не пустой строкой");
                     }
                     else _surname = value;
                 }
@@ -78,7 +78,7 @@ namespace ContactsApp
             /// <summary>
             /// Адрес электронной почты контакта
             /// </summary>
-            public string email
+            public string Email
             {
                 get
                 {
@@ -86,9 +86,9 @@ namespace ContactsApp
                 }
                 set
                 {
-                    if (value.Length > 50)
+                    if (value.Length > 50 || value==String.Empty)
                     {
-                        throw new ArgumentException(@"email должен быть короче 50 символов");
+                        throw new ArgumentException(@"Email должен быть короче 50 символов и не пустой строкой");
                     }
                     else _email = value;
                 }
@@ -101,7 +101,7 @@ namespace ContactsApp
             /// <summary>
             /// ID страницы ВКонтакте контакта
             /// </summary>
-            public string idvk
+            public string Idvk
             {
                 get
                 {
@@ -109,9 +109,9 @@ namespace ContactsApp
                 }
                 set
                 {
-                    if (value.Length > 15)
+                    if (value.Length > 15 || value == String.Empty)
                     {
-                        throw new ArgumentException(@"Ид ВКонтакте должен быть короче 15 символов");
+                        throw new ArgumentException(@"Ид ВКонтакте должен быть короче 15 символов и не пустой строкой");
                     }
                     else _idvk = value;
                 }
@@ -124,7 +124,7 @@ namespace ContactsApp
             /// <summary>
             /// Минимальная дата которая может быть назначена в качестве даты рождения
             /// </summary>
-            private readonly DateTime dateMin = new DateTime(1900, 01, 01);
+            private readonly DateTime _dateMin = new DateTime(1900, 01, 01);
 
             /// <summary>
             /// Дата рождения контакта
@@ -132,9 +132,9 @@ namespace ContactsApp
             public DateTime Birthday
             {
                 get { return _checkDate; }
-                set
-                {
-                    if (value > DateTime.Now && value < dateMin)
+            set
+            {
+                if (value > DateTime.Now || value < _dateMin)
                     {
                         throw new ArgumentException("Дата рождения должна быть меньше текущей даты и более чем 1900 год");
                     }

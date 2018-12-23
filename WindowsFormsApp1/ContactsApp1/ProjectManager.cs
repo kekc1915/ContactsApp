@@ -13,43 +13,53 @@ namespace ContactsApp
     /// </summary>
     public class Project_Manager
     {
-         //private static string filename = Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "/ContactApp.notes";
-         private static string filename = @"C:\Users\rodic\Documents";
-         /// <summary>
-         /// Выполнение сериализации
-         /// </summary>
-         /// <param name="filename">Путь к файлу для сериализации</param> 
-         /// <param name="product">Объект сериализации</param>
-         public void Serialization(string filename, Project product)
-         {
-             JsonSerializer serializer = new JsonSerializer();
+        private static string filename = Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "/ContactApp.notes";
+        //private static string filename = @"C:\Users\rodic\Documents\ContactApp.notes";
+        /// <summary>
+        /// Выполнение сериализации
+        /// </summary>
+        /// <param name="filename">Путь к файлу для сериализации</param> 
+        /// <param name="product">Объект сериализации</param>
+        public static void Serialization(Project product)
+        {
+            JsonSerializer serializer = new JsonSerializer();
 
-             using (StreamWriter sw = new StreamWriter(filename))
+            using (StreamWriter sw = new StreamWriter(filename))
 
-             using (JsonWriter writer = new JsonTextWriter(sw))
-             {
-                 //Вызываем сериализацию и передаем объект, который хотим сериализовать
-                 serializer.Serialize(writer, product);
-             }
-         }
-         /// <summary>
-         /// Выполнение десириализации
-         /// </summary>
-         /// <param name="filename">Путь к файлу для десириализации</param> 
-         /// <param name="product">Объект десириализации</param>
-         public void Deserialization(string filename, Project product)
-         {
-             product = null;
+            using (JsonWriter writer = new JsonTextWriter(sw))
+            {
+                //Вызываем сериализацию и передаем объект, который хотим сериализовать
+                serializer.Serialize(writer, product);
+            }
+        }
 
-             JsonSerializer serializer = new JsonSerializer();
+        private static bool fileExists = new FileInfo(filename).Exists;
+        
 
-             using (StreamReader sr = new StreamReader(filename))
+        /// <summary>
+        /// Выполнение десириализации
+        /// </summary>
+        /// <param name="filename">Путь к файлу для десириализации</param> 
+        /// <param name="product">Объект десириализации</param>
+        public static Project Deserialization(Project product)
+        {
+            if (fileExists == true)
+            {
+                product = null;
 
-             using (JsonReader reader = new JsonTextReader(sr))
-             {
-                 //Вызываем десериализацию и явно преобразуем результат в целевой тип данных
-                 product = (Project)serializer.Deserialize<Project>(reader);
-             }
-         }
+                JsonSerializer serializer = new JsonSerializer();
+
+                using (StreamReader sr = new StreamReader(filename))
+
+                using (JsonReader reader = new JsonTextReader(sr))
+                {
+                    //Вызываем десериализацию и явно преобразуем результат в целевой тип данных
+                    return product = (Project)serializer.Deserialize<Project>(reader);
+                }
+            }
+            else return product;
+            
+        }
+
     }
 }
