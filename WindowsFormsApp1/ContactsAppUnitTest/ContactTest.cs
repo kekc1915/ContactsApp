@@ -27,11 +27,11 @@ namespace ContactsAppUnitTest
         }
         [TestCase("Родичев","Тест пройден если иключений не возникло",
             TestName = "Присвоение правильной фамилии")]
-        public void TestSurnameSet_CorrectValue(string rightSurname, string massage)
+        public void TestSurnameSet_CorrectValue(string rightSurname, string message)
         {
             Assert.DoesNotThrow(
-            () => { _contact.Surname= rightSurname; },
-            massage);
+            () => { _contact.Surname = rightSurname; },
+            message);
         }
         [Test(Description = "Позитивный тест геттера Surname")]
         public void TestSurnameGet_CorrectValue()

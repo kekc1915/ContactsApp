@@ -13,6 +13,7 @@ namespace ContactsApp
     /// </summary>
     public class Project_Manager
     {
+
         private static string filename = Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "/ContactApp.notes";
         //private static string filename = @"C:\Users\rodic\Documents\ContactApp.notes";
         /// <summary>

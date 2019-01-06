@@ -134,7 +134,7 @@ namespace ContactsApp
                 get { return _checkDate; }
             set
             {
-                if (value > DateTime.Now || value < _dateMin)
+                if (value > DateTime.Now.AddDays(1) || value < _dateMin)
                     {
                         throw new ArgumentException("Дата рождения должна быть меньше текущей даты и более чем 1900 год");
                     }

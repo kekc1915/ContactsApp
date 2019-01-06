@@ -12,9 +12,9 @@ using ContactsApp;
 
 namespace ContactAppUI
 {
-    public partial class Form2 : Form
+    public partial class AddEditForm : Form
     {
-        public Form2()
+        public AddEditForm()
         {
             InitializeComponent();
             BirthdayDateTimePicker.MaxDate = DateTime.Now;
@@ -22,14 +22,14 @@ namespace ContactAppUI
 
         private void Form2_Load(object sender, EventArgs e)
         {
-           if (Data.newContact != null)
+           if (newContact.Phone != null)
             {
-                SurnameTextBox.Text = Data.newContact.Surname;
-                NameTextBox.Text = Data.newContact.Name;
-                EmailTextBox.Text = Data.newContact.Email;
-                VkTextBox.Text = Data.newContact.Idvk;
-                BirthdayDateTimePicker.Value = Data.newContact.Birthday;
-                PhoneTextBox.Text = Convert.ToString(Data.newContact.Phone.Number);
+                SurnameTextBox.Text = newContact.Surname;
+                NameTextBox.Text = newContact.Name;
+                EmailTextBox.Text = newContact.Email;
+                VkTextBox.Text = newContact.Idvk;
+                BirthdayDateTimePicker.Value = newContact.Birthday;
+                PhoneTextBox.Text = Convert.ToString(newContact.Phone.Number);
             }
             
         }
@@ -64,27 +64,24 @@ namespace ContactAppUI
             
         }
 
-        public class DataInMainForm
-        {
-            public string TxtBox;
-            public Contact newContact;
-        }
-        private DataInMainForm _data = new DataInMainForm();
-        public DataInMainForm Data
+        
+        public Contact newContact
         {
             get
             {
-                return _data;
+                return _newContact;
             }
             set
             {
-                _data = value;
+                _newContact = value;
             }
         }
+        private Contact _newContact = new Contact();
+      
         
-       private Contact newContact = new Contact();
+       // private Contact newContact = new Contact();
 
-       private Numbers _phone = new Numbers();
+        private Numbers _phone = new Numbers();
 
         private void OkButton_Click(object sender, EventArgs e)
         {
@@ -96,19 +93,19 @@ namespace ContactAppUI
             newContact.Phone = _phone;
             newContact.Email = EmailTextBox.Text;
             newContact.Idvk = VkTextBox.Text;
-            _data.TxtBox = newContact.Surname;
-            _data.newContact = newContact;
+           /* _data.TxtBox = newContact.Surname;
+            _data.newContact = newContact;*/
             this.Close();
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            Form1 main = this.Owner as Form1;
-            var form1 = new Form1();
+           /* MainForm main = this.Owner as MainForm;
+            var form1 = new MainForm();
             if (main != null)
-            {
-                Data = null;
-            }
+            {*/
+                newContact = null;
+           // }
             this.Close();
         }
     }
