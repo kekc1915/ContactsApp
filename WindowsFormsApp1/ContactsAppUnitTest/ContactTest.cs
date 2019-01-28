@@ -15,6 +15,7 @@ namespace ContactsAppUnitTest
         {
             _contact = new Contact();
         }
+
         [TestCase("", "Должно возникать исключение, если фамилия - пустая строка",
             TestName = "Присвоение пустой строки в качестве фамилии")]
         [TestCase("Смирнов-Смирнов-Смирнов-Смирнов-Смирнов-Смирнов-Смирнов-Смирнов-Смирнов-Смирнов", "Должно возникать исключение, если фамилия длиннее 50 символов",
@@ -25,6 +26,7 @@ namespace ContactsAppUnitTest
             () => { _contact.Surname = wrongSurname; },
             message);
         }
+
         [TestCase("Родичев","Тест пройден если иключений не возникло",
             TestName = "Присвоение правильной фамилии")]
         public void TestSurnameSet_CorrectValue(string rightSurname, string message)
@@ -33,6 +35,7 @@ namespace ContactsAppUnitTest
             () => { _contact.Surname = rightSurname; },
             message);
         }
+
         [Test(Description = "Позитивный тест геттера Surname")]
         public void TestSurnameGet_CorrectValue()
         {
@@ -52,6 +55,7 @@ namespace ContactsAppUnitTest
             () => { _contact.Name = wrongName; },
             message);
         }
+
         [TestCase("Артем", "Тест пройден если иключений не возникло",
             TestName = "Присвоение правильного имени")]
         public void TestNameSet_CorrectValue(string right, string massage)
@@ -60,6 +64,7 @@ namespace ContactsAppUnitTest
             () => { _contact.Name = right; },
             massage);
         }
+
         [Test(Description = "Позитивный тест геттера Name")]
         public void TestNameGet_CorrectValue()
         {
@@ -68,8 +73,7 @@ namespace ContactsAppUnitTest
             var actual = _contact.Name;
             Assert.AreEqual(expected, actual, "Геттер Name возвращает неправильное имя");
         }
-        [TestCase("", "Должно возникать исключение, если Email - пустая строка",
-            TestName = "Присвоение пустой строки в качестве Email")]
+
         [TestCase("-Email-Email-Email-Email-Email-Email-Email-Email-Email-Email-Email-Email-Email-Email-Email-Email-Email", "Должно возникать исключение, если Email длиннее 50 символов",
             TestName = "Присвоение неправильной Email больше 50 символов")]
         public void TestEmailSet_ArgumentException(string wrongEmail, string message)
@@ -78,6 +82,7 @@ namespace ContactsAppUnitTest
             () => { _contact.Email = wrongEmail; },
             message);
         }
+
         [Test(Description = "Позитивный тест геттера Email")]
         public void TestEmailGet_CorrectValue()
         {
@@ -86,6 +91,7 @@ namespace ContactsAppUnitTest
             var actual = _contact.Email;
             Assert.AreEqual(expected, actual, "Геттер Email возвращает неправильный Email");
         }
+
         [TestCase("rodichevartem@yandex.ru", "Тест пройден если иключений не возникло",
             TestName = "Присвоение правильного email")]
         public void TestEmailSet_CorrectValue(string right, string massage)
@@ -94,8 +100,7 @@ namespace ContactsAppUnitTest
             () => { _contact.Email = right; },
             massage);
         }
-        [TestCase("", "Должно возникать исключение, если Idvk - пустая строка",
-            TestName = "Присвоение пустой строки в качестве Idvk")]
+
         [TestCase("-Idvk-Idvk-Idvk-Idvk-Idvk-Idvk-Idvk-Idvk-Idvk-Idvk-Idvk-Idvk-Idvk-Idvk-Idvk-Idvk-Idvk-Idvk-Idvk-Idvk-Idvk-Idvk", "Должно возникать исключение, если Idvk длиннее 15 символов",
             TestName = "Присвоение неправильной Idvk больше 50 символов")]
         public void TestIdvkSet_ArgumentException(string wrongIdvk, string message)
@@ -104,6 +109,7 @@ namespace ContactsAppUnitTest
             () => { _contact.Idvk = wrongIdvk; },
             message);
         }
+
         [Test(Description = "Позитивный тест геттера Idvk")]
         public void TestIdvkGet_CorrectValue()
         {
@@ -112,6 +118,7 @@ namespace ContactsAppUnitTest
             var actual = _contact.Idvk;
             Assert.AreEqual(expected, actual, "Геттер Idvk возвращает неправильный id");
         }
+
         [TestCase("artem_rodichev", "Тест пройден если иключений не возникло",
             TestName = "Присвоение правильного id")]
         public void TestIdvkSet_CorrectValue(string right, string massage)
@@ -120,6 +127,7 @@ namespace ContactsAppUnitTest
             () => { _contact.Idvk = right; },
             massage);
         }
+
          [TestCase("01.01.1800 0:00:00", "Должно возникать исключение, если дата меньше 1900 ",
          TestName = "Присвоение даты меньше минимальной в качестве Birthday")]
          [TestCase("01.01.2050 0:00:00", "Должно возникать исключение, если дата больше текущей",
@@ -131,14 +139,16 @@ namespace ContactsAppUnitTest
             () => { _contact.Birthday = wrongDate; },
             message);
          }
-       /* [Test(Description = "Позитивный тест геттера Birthday")]
+
+        [Test(Description = "Позитивный тест геттера Birthday")]
         public void TestBirthdayGet_CorrectValue()
         {
             DateTime expected = new DateTime(1998,09,08);
             _contact.Birthday = expected;
             var actual = _contact.Birthday;
             Assert.AreEqual(expected, actual, "Геттер Phone возвращает неправильный номер");
-        }*/
+        }
+
         [TestCase("18.12.2018 0:00:00", "Тест пройден если иключений не возникло",
             TestName = "Присвоение правильного Birthday")]
         public void TestBirthdaySet_CorrectValue(string rightString, string massage)
@@ -148,24 +158,6 @@ namespace ContactsAppUnitTest
             () => { _contact.Birthday = right; },
             massage);
         }
-
-       
-        [Test(Description = "Позитивный тест геттера Phone")]
-        public void TestPhoneGet_CorrectValue()
-        {
-            Numbers expected = new Numbers();
-            _contact.Phone = expected;
-            var actual = _contact.Phone;
-            Assert.AreEqual(expected, actual, "Геттер Phone возвращает неправильный номер");
-        }
-       /* [TestCase("Артем", "Тест пройден если иключений не возникло",
-            TestName = "Присвоение правильного имени")]
-        public void TestNameSet_CorrectValue(string right, string massage)
-        {
-            Assert.DoesNotThrow(
-            () => { _contact.Name = right; },
-            massage);
-        }*/
     }
    
 }

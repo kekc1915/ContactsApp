@@ -86,9 +86,9 @@ namespace ContactsApp
                 }
                 set
                 {
-                    if (value.Length > 50 || value==String.Empty)
+                    if (value.Length > 50)
                     {
-                        throw new ArgumentException(@"Email должен быть короче 50 символов и не пустой строкой");
+                        throw new ArgumentException(@"Email должен быть короче 50 символов ");
                     }
                     else _email = value;
                 }
@@ -109,9 +109,9 @@ namespace ContactsApp
                 }
                 set
                 {
-                    if (value.Length > 15 || value == String.Empty)
+                    if (value.Length > 15 )
                     {
-                        throw new ArgumentException(@"Ид ВКонтакте должен быть короче 15 символов и не пустой строкой");
+                        throw new ArgumentException(@"Ид ВКонтакте должен быть короче 15 символов");
                     }
                     else _idvk = value;
                 }
@@ -124,7 +124,7 @@ namespace ContactsApp
             /// <summary>
             /// Минимальная дата которая может быть назначена в качестве даты рождения
             /// </summary>
-            private readonly DateTime _dateMin = new DateTime(1900, 01, 01);
+            //private readonly DateTime _dateMin = new DateTime(1900, 01, 01);
 
             /// <summary>
             /// Дата рождения контакта
@@ -134,7 +134,8 @@ namespace ContactsApp
                 get { return _checkDate; }
             set
             {
-                if (value > DateTime.Now.AddDays(1) || value < _dateMin)
+                DateTime _dateMin = new DateTime(1900, 01, 01);
+                if (value >= DateTime.Now.AddDays(1) || value < _dateMin)
                     {
                         throw new ArgumentException("Дата рождения должна быть меньше текущей даты и более чем 1900 год");
                     }
@@ -145,12 +146,12 @@ namespace ContactsApp
             /// <summary>
             /// Переменная для реализации метода get в Phone
             /// </summary>
-            private Numbers _phone;
+            private PhoneNumber _phone;
 
             /// <summary>
             /// Переменная,связанная с классом Numbers, хранящая данные о номере телефона
             /// </summary>
-            public Numbers Phone
+            public PhoneNumber Phone
             {
                 get { return _phone; }
                 set { _phone = value; }

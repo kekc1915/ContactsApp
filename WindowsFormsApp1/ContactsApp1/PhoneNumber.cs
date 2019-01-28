@@ -1,4 +1,4 @@
-п»їusing System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace ContactsApp
 {
-        /// <summary>
-        /// РљР»Р°СЃСЃ С…СЂР°РЅСЏС‰РёР№ РґР°РЅРЅС‹Рµ Рѕ РЅРѕРјРµСЂe С‚РµР»РµС„РѕРЅР°.
-        /// </summary>
-        public class Numbers
+        	/// <summary>
+	/// Класс хранящий данные о номерe телефона.
+	/// </summary>
+        public class PhoneNumber
         {
             /// <summary>
-            /// РџРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ СЂРµР°Р»РёР·Р°С†РёРё РјРµС‚РѕРґР° get РІ Number
+            /// Переменная для реализации метода get в Number
             /// </summary>
             private System.Int64 _numbercheck;
 
             /// <summary>
-            /// РџРµСЂРµРјРµРЅРЅР°СЏ,Р°РЅР°Р»РѕРі longint,С…СЂР°РЅСЏС‰Р°СЏ РґР°РЅРЅР°СЏ Рѕ РЅРѕРјРµСЂРµ С‚РµР»РµС„РѕРЅР° Рё РІС‹РїРѕР»РЅСЏСЋС‰Р°СЏ РІСЃРµ РЅРµРѕР±С…РѕРґРёРјС‹Рµ РїСЂРѕРІРµСЂРєРё
+            /// Переменная,аналог longint,хранящая данная о номере телефона и выполняющая все необходимые проверки
             /// </summary>
             public System.Int64 Number
             {
@@ -26,7 +26,7 @@ namespace ContactsApp
                 {
                     if (value > 79999999999 || value < 70000000000)
                     {
-                        throw new ArgumentException("РќРѕРјРµСЂ С‚РµР»РµС„РѕРЅР° РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РІ С„РѕСЂРјР°С‚Рµ 7xxxxxxxxxx,Р° Р±С‹Р» " + value);
+                        throw new ArgumentException("Номер телефона должен быть в формате 7xxxxxxxxxx,а был " + value);
                     }
                     else _numbercheck = value;
                 }

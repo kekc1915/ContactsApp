@@ -76,12 +76,10 @@ namespace ContactAppUI
                 _newContact = value;
             }
         }
-        private Contact _newContact = new Contact();
-      
-        
-       // private Contact newContact = new Contact();
 
-        private Numbers _phone = new Numbers();
+        private Contact _newContact = new Contact();
+
+        private PhoneNumber _phone = new PhoneNumber();
 
         private void OkButton_Click(object sender, EventArgs e)
         {
@@ -93,19 +91,12 @@ namespace ContactAppUI
             newContact.Phone = _phone;
             newContact.Email = EmailTextBox.Text;
             newContact.Idvk = VkTextBox.Text;
-           /* _data.TxtBox = newContact.Surname;
-            _data.newContact = newContact;*/
             this.Close();
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-           /* MainForm main = this.Owner as MainForm;
-            var form1 = new MainForm();
-            if (main != null)
-            {*/
-                newContact = null;
-           // }
+            newContact = null;
             this.Close();
         }
     }

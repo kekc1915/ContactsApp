@@ -20,7 +20,7 @@ namespace ContactAppUI
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            _project = Project_Manager.Deserialization(_project);
+            _project = ProjectManager.Deserialization(null);
             if(_project!=null)
             {
                for(int i=0;i<_project.ContactList.Count;i++)
@@ -28,61 +28,45 @@ namespace ContactAppUI
                     ContactsListBox.Items.Add(_project.ContactList[i].Surname);
                 }
             }
-
-            Project _projectHappyBirthday = new Project();
-
-            _projectHappyBirthday.ContactList=_project.HappyBirthdayInfo(DateTime.Now, _project.ContactList);
-            if (_projectHappyBirthday != null)
+            BirthdayDateTimePicker.MaxDate = DateTime.Now;
+            if (_project.HappyBirthdayInfo(DateTime.Now, _project.ContactList) != null)
             {
+                Project _projectHappyBirthday = new Project();
+                _projectHappyBirthday.ContactList = _project.HappyBirthdayInfo(DateTime.Now, _project.ContactList);
                 string _stringBirthday = "";
                 for (int i = 0; i < _projectHappyBirthday.ContactList.Count; i++)
                 {
-                    _stringBirthday =  _stringBirthday + _projectHappyBirthday.ContactList[i].Surname + " ";
+                    _stringBirthday = _stringBirthday + _projectHappyBirthday.ContactList[i].Surname + " ";
                 }
-                HappyBirthdayLabel.Text = "Сегодня день рождения: \n"+_stringBirthday;
+                HappyBirthdayLabel.Text = "Сегодня день рождения: \n" + _stringBirthday;
             }
-        }
-
-        public void Sort()
-        {
-            ContactsListBox.Sorted = true;
-            if (_project != null)
-            {
-                Project sortProject=new Project();
-                sortProject = _project;
-                for (int i = 0; i < _project.ContactList.Count; i++)
-                {
-                    if (ContactsListBox.Items[i].ToString() != _project.ContactList[i].Surname)
-                    {
-                        for (int j = 0; j < sortProject.ContactList.Count; j++)
-                        {
-                            if (sortProject.ContactList[j].Surname == ContactsListBox.Items[i].ToString())
-                            {
-                                _project.ContactList[j] = sortProject.ContactList[i];
-                                _project.ContactList[i] = sortProject.ContactList[j];
-                            }
-                        }
-
-
-                    }
-                }
-            }
+            else HappyBirthdayLabel.Text = "";
         }
 
         private Project _project=new Project();
 
         private void AddButton_Click(object sender, EventArgs e)
         {         
-            var form2 = new AddEditForm();
-            form2.newContact.Phone = null;
-            form2.ShowDialog();
-            var UpdatedDate = form2.newContact;         
-            if (UpdatedDate != null)
+            var _addForm = new AddEditForm();
+            _addForm.newContact.Phone = null;
+            _addForm.ShowDialog();
+            var _updatedDate = _addForm.newContact;         
+            if (_updatedDate != null)
             {
-                _project.ContactList.Add(UpdatedDate);
-                ContactsListBox.Items.Add(UpdatedDate.Surname);
-               // Sort();
-                Project_Manager.Serialization(_project);
+                if (FindTextBox.Text != string.Empty)
+                {
+                    _project = ProjectManager.Deserialization(null);
+                }
+                _project.ContactList.Add(_updatedDate);
+                ContactsListBox.Items.Add(_updatedDate.Surname);
+                _project.Sort(_project.ContactList);
+                ContactsListBox.Sorted = true;
+                _project.ContactList = _project.Sort(_project.ContactList);
+                ProjectManager.Serialization(_project,null);
+                if (FindTextBox.Text != string.Empty)
+                {
+                    FindFunction();
+                }
             }
         }
 
@@ -90,42 +74,42 @@ namespace ContactAppUI
         {
        
         }
-        private int IfFindTextBoxNoEmpty(int index)
-        {
-            for (int i = 0; i < _project.ContactList.Count; i++)
-            {
-                if (_project.ContactList[i] == _searchString.ContactList[ContactsListBox.SelectedIndex])
-                    index = i;
-            }
-            return index;
-        }
+
         private void EditButton_Click(object sender, EventArgs e)
         {
-            AddEditForm form2 = new AddEditForm();
+            AddEditForm _addEditForm = new AddEditForm();
             if (ContactsListBox.SelectedIndex >= 0)
             {
-                int selectedIndex = ContactsListBox.SelectedIndex;
-                if (FindTextBox.Text != string.Empty)
+                _addEditForm.newContact = _project.ContactList[ContactsListBox.SelectedIndex];
+                _addEditForm.ShowDialog();
+                if (_addEditForm.newContact != null)
                 {
-                    selectedIndex = IfFindTextBoxNoEmpty(selectedIndex);
-                }
-                form2.newContact = _project.ContactList[selectedIndex];
-                form2.ShowDialog();
-                if (form2.newContact != null)
-                {
-                    var UpdatedDate = form2.newContact;
-                    _project.ContactList.RemoveAt(selectedIndex);
+                    var _updatedDate = _addEditForm.newContact;
+                    if (FindTextBox.Text != string.Empty)
+                    {
+                        FindIndex();
+                        _project = ProjectManager.Deserialization(null);
+                    }
+                    else
+                    {
+                        _project.ContactList.RemoveAt(ContactsListBox.SelectedIndex);
+                    }
                     ContactsListBox.Items.RemoveAt(ContactsListBox.SelectedIndex);
-                    _project.ContactList.Add(UpdatedDate);
-                    ContactsListBox.Items.Add(UpdatedDate.Surname);
-                   // Sort();
-                    Project_Manager.Serialization(_project);
-                    NameTextBox.Text = UpdatedDate.Name;
-                    SurnameTextBox.Text = UpdatedDate.Surname;
-                    EmailTextBox.Text = UpdatedDate.Email;
-                    VkTextBox.Text = UpdatedDate.Idvk;
-                    BirthdayDateTimePicker.Value = UpdatedDate.Birthday;
-                    PhoneTextBox.Text = Convert.ToString(UpdatedDate.Phone.Number);
+                    _project.ContactList.Add(_updatedDate);
+                    ContactsListBox.Items.Add(_updatedDate.Surname);
+                    ContactsListBox.Sorted = true;
+                    _project.Sort(_project.ContactList);
+                    ProjectManager.Serialization(_project,null);
+                    NameTextBox.Text = _updatedDate.Name;
+                    SurnameTextBox.Text = _updatedDate.Surname;
+                    EmailTextBox.Text = _updatedDate.Email;
+                    VkTextBox.Text = _updatedDate.Idvk;
+                    BirthdayDateTimePicker.Value = _updatedDate.Birthday;
+                    PhoneTextBox.Text = Convert.ToString(_updatedDate.Phone.Number);
+                    if (FindTextBox.Text != string.Empty)
+                    {
+                        FindFunction();
+                    }
                 }
             }
         }
@@ -148,14 +132,7 @@ namespace ContactAppUI
             if (ContactsListBox.SelectedIndex >= 0)
             {
                 Contact newContact; 
-                if (FindTextBox.Text != string.Empty)
-                {
-                    newContact = _searchString.ContactList[ContactsListBox.SelectedIndex];
-                }
-                else
-                {
-                    newContact = _project.ContactList[ContactsListBox.SelectedIndex];
-                }
+                newContact = _project.ContactList[ContactsListBox.SelectedIndex];
                 NameTextBox.Text = newContact.Name;
                 SurnameTextBox.Text = newContact.Surname;
                 EmailTextBox.Text = newContact.Email;
@@ -190,37 +167,50 @@ namespace ContactAppUI
 
         }
 
+        private void FindIndex()
+        {
+            Project _projectFindIndex =ProjectManager.Deserialization(null);
+            for(int i=0; i< ContactsListBox.Items.Count; i++)
+                for(int j = 0; j < _projectFindIndex.ContactList.Count; j++)
+                {
+                    if (Convert.ToString(ContactsListBox.Items[i]) == _projectFindIndex.ContactList[j].Surname)
+                    {
+                        _projectFindIndex.ContactList.RemoveAt(j);
+                        ProjectManager.Serialization(_projectFindIndex, null);
+                    }
+                }
+        }
         private void RemoveButton_Click(object sender, EventArgs e)
         {
             if (ContactsListBox.SelectedIndex >= 0)
             {
-                int selectedIndex = ContactsListBox.SelectedIndex;
-                if (FindTextBox.Text != string.Empty)
-                {
-                    selectedIndex = IfFindTextBoxNoEmpty(selectedIndex);
-                }
-
-                DialogResult result = MessageBox.Show("Do you really want to delete the contact?\n" + _project.ContactList[selectedIndex].Surname + " " + _project.ContactList[selectedIndex].Name, "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show("Do you really want to delete the contact?\n" 
+                    + _project.ContactList[ContactsListBox.SelectedIndex].Surname + " " 
+                    + _project.ContactList[ContactsListBox.SelectedIndex].Name, 
+                    "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.OK)
                 {
-                    if (FindTextBox.Text != string.Empty)
+                    if(FindTextBox.Text != string.Empty)
                     {
-                        _searchString.ContactList.RemoveAt(ContactsListBox.SelectedIndex);
-                        ContactsListBox.Items.RemoveAt(ContactsListBox.SelectedIndex);
-                        _project.ContactList.RemoveAt(selectedIndex);
+                        FindIndex();
+                        _project = ProjectManager.Deserialization(null);
                     }
                     else
                     {
                         _project.ContactList.RemoveAt(ContactsListBox.SelectedIndex);
-                        ContactsListBox.Items.RemoveAt(ContactsListBox.SelectedIndex);
                     }
-                    Project_Manager.Serialization(_project);
+                    ContactsListBox.Items.RemoveAt(ContactsListBox.SelectedIndex);
+                    ProjectManager.Serialization(_project,null);
                     NameTextBox.Clear();
                     SurnameTextBox.Clear();
                     EmailTextBox.Clear();
                     PhoneTextBox.Clear();
                     VkTextBox.Clear();
                     BirthdayDateTimePicker.Value = BirthdayDateTimePicker.MaxDate;
+                    if (FindTextBox.Text != string.Empty)
+                    {
+                        FindFunction();
+                    }
                 }
             }
             
@@ -259,7 +249,7 @@ namespace ContactAppUI
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
-            Project_Manager.Serialization(_project);
+            ProjectManager.Serialization(_project,null);
         }
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -268,35 +258,32 @@ namespace ContactAppUI
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AboutForm aboutForm = new AboutForm();
-            aboutForm.ShowDialog();
+            AboutForm _aboutForm = new AboutForm();
+            _aboutForm.ShowDialog();
         }
 
-        private Project _searchString = new Project();
-
-        private void FindTextBox_TextChanged(object sender, EventArgs e)
+        private void FindFunction()
         {
-            if( FindTextBox.Text != string.Empty)
+            if (FindTextBox.Text != string.Empty)
             {
-                
                 ContactsListBox.Items.Clear();
-                for(int i = 0; i < _project.ContactList.Count; i++)
-                {
-                   // ContactsListBox.Items[i].ToString().Contains(FindTextBox.Text) == true
-                    if (_project.ContactList[i].Surname.Contains(FindTextBox.Text) == true || _project.ContactList[i].Name.Contains(FindTextBox.Text)==true)
-                    {
-                       _searchString.ContactList.Add(_project.ContactList[i]);
-                        ContactsListBox.Items.Add(_project.ContactList[i].Surname);
-                    }
-                }  
+                _project.ContactList = _project.Sort(_project.ContactList, FindTextBox.Text);
             }
             else
             {
                 ContactsListBox.Items.Clear();
-                _searchString.ContactList.Clear();
-                for (int i = 0; i < _project.ContactList.Count; i++)
+                _project = ProjectManager.Deserialization(null);
+            }
+            for (int i = 0; i < _project.ContactList.Count; i++)
+            {
                 ContactsListBox.Items.Add(_project.ContactList[i].Surname);
             }
+        }
+
+        private void FindTextBox_TextChanged(object sender, EventArgs e)
+        {
+            _project = ProjectManager.Deserialization(null);
+            FindFunction();
         }
 
         private void HappyBirthdayLabel_Click(object sender, EventArgs e)

@@ -59,7 +59,9 @@
   <ItemGroup>
     <Compile Include="ContactTest.cs" />
     <Compile Include="NumbersTest.cs" />
-    <Compile Include="ProjectManagerTest.cs" />
+    <Compile Include="ProjectManagerTest.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -11,11 +11,11 @@ namespace ContactsAppUnitTest
     [TestFixture]
     public class NumbersTest
     {
-        private Numbers _number;
+        private PhoneNumber _number;
         [SetUp]
         public void InitContact()
         {
-            _number = new Numbers();
+            _number = new PhoneNumber();
         }
         [TestCase(89999999999, "Должно возникать исключение, если номер больше 79999999999",
             TestName = "Присвоение номера более 79999999999 в качетве номера")]
